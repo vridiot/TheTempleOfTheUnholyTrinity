@@ -6,7 +6,7 @@
   <meta http-equiv="pragma" content="no-cache">
 
 	<script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
-	<script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.0/dist/aframe-altspace-component.min.js"></script>
+	<script src="https://cdn.rawgit.com/AltspaceVR/aframe-altspace-component/v1.3.1/dist/aframe-altspace-component.min.js"></script>
 
 </head>
 <body>
@@ -14,10 +14,24 @@
 <a-scene altspace ='fullspace: true'>
 	<a-assets>
 		<a-asset-item id="sco" src="Temple.dae"></a-asset-item>
+		<a-asset-item id="cl" src="./assets/collider.dae"></a-asset-item>
 	</a-assets>
 
 <a-entity position="0 0 0" collada-model="#sco"></a-entity>
+<a-entity position="0 0 0" collada-model="#cl" id="cl-a" altspace-cursor-collider="enabled: false" n-mesh-collider="type: environment; convex: false"></a-entity>
 
-
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    	var mesh = document.querySelector('#cl-a');
+        mesh.addEventListener('model-loaded', function() {
+            setTimeout(function(e) {
+                var meshy = document.querySelector('#cl-a');
+                var object = meshy.object3D;
+                var collider_mesh = object.children[0].children[0].children[0];
+                collider_mesh.material.visible = false;
+                collider_mesh.material.needsUpdate = true;
+            }, 500);
+        });
+    });
+</script>
 </body></html>
