@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Letterwheel letters (test)</p>
+<p>Three stone tablets will be presented to the visitor. Each stone tablet is round with 5 letters on them. One in the middle. Four around going clock-wise. The following array shows all letters to show on those letterwheels. One (random) letter must not be shown though. This is the letter that the visitor has to guess.</p>
+<p id="demo"></p>
+
+<script>
+var alphabet = ["0","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+var letterwheel = [];
+var mainletter = 1;
+var startletter = 1;
+var i = 1;
+
+while (i < 4) {
+	mainletter = 1 + Math.floor((Math.random() * 5));
+	startletter = 1 + Math.floor((Math.random() * 6)); 
+	letterwheel[letterwheel.length] = alphabet[mainletter];
+	var j = 1;
+		while (j < 5) {
+		letterwheel[letterwheel.length] = alphabet[startletter + (mainletter * j)];
+		j++;
+	}
+	i++;
+}
+
+document.getElementById("demo").innerHTML = letterwheel;
+</script>
+
+</body>
+</html>
