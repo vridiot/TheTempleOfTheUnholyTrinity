@@ -6,7 +6,16 @@
 <p>Three stone tablets will be presented to the visitor. Each stone tablet is round with 5 letters on them. One in the middle. Four around going clock-wise. The following array shows all letters to show on those letterwheels. One (random) letter must not be shown though. This is the letter that the visitor has to guess.</p>
 <p id="demo1"></p>
 
+<p>Magic trinity square</p>
+<p>One stone tablet will be presented with a tic-tac-toe-like 3 by 3 grid. It can be filled with each of the 9 digits, ranging from 1 to 9, each digit only used once. Only 3 digits will be shown. The visitor has to fill in the other 6 digits, sudoku-style. There is one catch though: the horizontal, vertical, and diagonal rows all need to add up to (3 x 3) + (3 + 3).</p>
+<p id="demo2"></p>
+
+<p>The twig fig jig</p>
+<p>One a wooden tablet will be presented with a 3 by 3 grid. It will contain pictures of two twig fig leaves (one over the other). The picture will have the left fig twig over the right (L) or the left over the right (R) and they can be rotated in four ways (0, 90, 180, or 270 degrees). Of the pictures 7 will be unique, 2 will be duplicates. The visitor must find one of the duplicates.</p>
+<p id="demo3"></p>
+
 <script>
+// Trinity letterwheel calculation
 var alphabet = ["0","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var letterwheel = [];
 var mainletter = 1;
@@ -24,13 +33,8 @@ while (i < 4) {
 	}
 	i++;
 }
-</script>
 
-<p>Magic trinity square</p>
-<p>One stone tablet will be presented with a tic-tac-toe-like 3 by 3 grid. It can be filled with each of the 9 digits, ranging from 1 to 9, each digit only used once. Only 3 digits will be shown. The visitor has to fill in the other 6 digits, sudoku-style. There is one catch though: the horizontal, vertical, and diagonal rows all need to add up to (3 x 3) + (3 + 3).</p>
-<p id="demo2"></p>
-
-<script>
+// Magic trinity square calculation
 var digits = [[4,3,8,9,5,1,2,7,6],[4,9,2,3,5,7,8,1,6]];
 var magicsquare = [];
 var invertrows = Math.round(Math.random());
@@ -48,11 +52,23 @@ if (invertrows) {
 if (invertdigits) {
 	magicsquare = magicsquare.reverse();
 }
-</script>
 
-<script>
+// Twig fig jig calculation
+// L = left twig over right + degrees rotation
+// R = right twig over left + degrees rotation
+var twigs = ["L0","R0","L90","R90","L180","R180","L270","R270","L0"];
+
+while (i < 10) {
+	first = Math.min(Math.round((Math.random() * 9) - 0.5),8);
+	second = Math.min(Math.round((Math.random() * 9) - 0.5),8);
+	twigs[first] = [twigs[second],twigs[second]=twigs[first]][0];
+	i++;
+}
+
+// Show calculations
 document.getElementById("demo1").innerHTML = letterwheel;
 document.getElementById("demo2").innerHTML = magicsquare;
+document.getElementById("demo3").innerHTML = twigs;
 </script>
 
 </body>
