@@ -4,18 +4,23 @@
 
 <p>Trinity letterwheel</p>
 <p>Three stone tablets will be presented to the visitor. Each stone tablet is round with 5 letters on them. One in the middle. Four around going clock-wise. The following array shows all letters to show on those letterwheels. One (random) letter must not be shown though. This is the letter that the visitor has to guess.</p>
-<p id="demo1"></p>
+<p id="game1"></p>
 
 <p>Magic trinity square</p>
 <p>One stone tablet will be presented with a tic-tac-toe-like 3 by 3 grid. It can be filled with each of the 9 digits, ranging from 1 to 9, each digit only used once. Only 3 digits will be shown. The visitor has to fill in the other 6 digits, sudoku-style. There is one catch though: the horizontal, vertical, and diagonal rows all need to add up to (3 x 3) + (3 + 3).</p>
-<p id="demo2"></p>
+<p id="game2"></p>
 
 <p>The twig fig jig</p>
-<p>One a wooden tablet will be presented with a 3 by 3 grid. It will contain pictures of two twig fig leaves (one over the other). The picture will have the left fig twig over the right (L) or the left over the right (R) and they can be rotated in four ways (0, 90, 180, or 270 degrees). Of the pictures 7 will be unique, 2 will be duplicates. The visitor must find one of the duplicates.</p>
-<p id="demo3"></p>
+<p>On a wooden board 9 pictures will be presented in a 3 by 3 grid. It will contain pictures of two twig fig leaves crossed like a 'x' (one over the other). Each picture will have either the left fig twig over the right (L) or the left over the right (R) and they can be rotated in four ways (0, 90, 180, or 270 degrees). Of the pictures 7 will be unique, 2 will be duplicates. The visitor must find one of the duplicates.</p>
+<p id="game3"></p>
+
+<p>Guess the bottom-middle number</p>
+<p>On three wooden planks placed next to eathother in portrait numbers will be displayed of 2 digits each. The left and right board will contain 4 numbers. The middle board will contain 3 numbers. The visitor has to guess the 4th one. </p>
+<p id="game4"></p>
 
 <script>
 // Trinity letterwheel calculation
+// Array contains letters going from middle, top-left, top-right, bottom-right, bottom-left (3 times in a row)
 var alphabet = ["0","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 var letterwheel = [];
 var mainletter = 1;
@@ -35,6 +40,7 @@ while (i < 4) {
 }
 
 // Magic trinity square calculation
+// Array contains numbers going from left to right, top to bottom
 var digits = [[4,3,8,9,5,1,2,7,6],[4,9,2,3,5,7,8,1,6]];
 var magicsquare = [];
 var invertrows = Math.round(Math.random());
@@ -56,7 +62,10 @@ if (invertdigits) {
 // Twig fig jig calculation
 // L = left twig over right + degrees rotation
 // R = right twig over left + degrees rotation
-var twigs = ["L0","R0","L90","R90","L180","R180","L270","R270","L0"];
+// Array contains positions going from left to right, top to bottom
+var twigs = ["L0","R0","L90","R90","L180","R180","L270","R270"];
+
+twigs[twigs.length] = twigs[Math.min(Math.round((Math.random() * 8) - 0.5),7)];
 
 while (i < 10) {
 	first = Math.min(Math.round((Math.random() * 9) - 0.5),8);
@@ -65,10 +74,35 @@ while (i < 10) {
 	i++;
 }
 
+// Guess the bottom-middle number calculation
+// Array contains positions going from left to right, top to bottom
+var boards = [];
+var i = 1;
+var firstdigit = 1;
+var seconddigit = 1;
+var thirddigit = 1;
+var forthdigit = 1;
+var digitsum = 2;
+
+while (i < 4) {
+	firstdigit = Math.min(Math.round((Math.random() * 4) + 4.5),9);
+	seconddigit = Math.max(Math.min(Math.round((Math.random() * 10) - 0.5),9),10-firstdigit);
+	digitsum = firstdigit + seconddigit;
+	forthdigit = Math.min(Math.round((Math.random() * 9) + 0.5),9);
+    forthdigit = Math.max(forthdigit,digitsum-9);
+   	thirddigit = digitsum - forthdigit;
+    
+    boards[boards.length] = "" + firstdigit + seconddigit;
+    boards[boards.length] = firstdigit + seconddigit;
+    boards[boards.length] = "" + thirddigit + forthdigit;
+	i++;
+}
+
 // Show calculations
-document.getElementById("demo1").innerHTML = letterwheel;
-document.getElementById("demo2").innerHTML = magicsquare;
-document.getElementById("demo3").innerHTML = twigs;
+document.getElementById("game1").innerHTML = letterwheel;
+document.getElementById("game2").innerHTML = magicsquare;
+document.getElementById("game3").innerHTML = twigs;
+document.getElementById("game4").innerHTML = boards;
 </script>
 
 </body>
